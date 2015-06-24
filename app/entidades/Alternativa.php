@@ -1,18 +1,27 @@
 <?php
 namespace app\entidades
-	{
-
+{
 	/**
 	*
 	*/
+
 	class Alternativa
 	{
+		private $codAlternativa;
+		private $descricaoAlternativa
+		private $valorArea;
 
-		function __construct($argument)
+		/*
+		* Construtor
+		*/
+
+		function __construct($codAlternativa, $descricaoAlternativa, $valorArea)
 		{
-			private this->codAlternativa;
-			private this->descricaoAlternativa
-			private this->valorArea;
+			this->codAlternativa = $codAlternativa;
+			this->descricaoAlternativa = $descricaoAlternativa;
+			this->valorArea = $valorArea;
 		}
+
+
 	}
 }

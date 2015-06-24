@@ -3,8 +3,8 @@ if(!defined("SPECIALCONSTANT")) die ("Acesso negado!");
 
 /*
      Metodo GET
-     Possibilita api oferecer pela url https://localhost/Soulsolidario/usuario
-     a listagem de todas entidades cadastradas.
+     Possibilita api oferecer pela url https://localhost/Soulsolidario/usuarios
+     a listagem de todas usuários cadastradas.
 */
 
 $app->get("/usuarios", function() use($app)
@@ -25,6 +25,34 @@ $app->get("/usuarios", function() use($app)
           echo "Erro: " . $e->getMessage();
      }
 });
+
+/*
+     Metodo GET - passando parâmetro.
+     Possibilita a api oferecer as informações detalhada (perfil) de um usuário cadastrado
+     A url deve ser consumida passando um parâmetro para seleção. No caso, @codUser.
+*/
+
+$app->get("/usuarios/:codUser", function($codUser) use($app)
+{
+     try{
+          $connection = getConnection();
+          $dbh = $connection->prepare("SELECT * FROM usuario WHERE codUser = ?");
+          $dbh->bindParam(1, $codUser);
+          $dbh->execute();
+          $usuario = $dbh->fetchObject();
+          $connection = null;
+
+          $app->response->headers->set("Content-type", "application/json;charset=utf-8");
+          $app->response->status(200);
+          $app->response->body(json_encode($usuarios));
+     }
+     catch(PDOException $e)
+     {
+          echo "Erro: " . $e->getMessage();
+     }
+});
+
+
 
 $app->post("/usuarios/", function() use($app)
 {

@@ -6,7 +6,6 @@ namespace app\entidades
 
 	class Pergunta
 	{
-
 		private this->codPergunta;
 	}
 
