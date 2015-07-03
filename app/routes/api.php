@@ -9,12 +9,11 @@ if(!defined("SPECIALCONSTANT")) die ("Acesso negado!");
 
 $app->get("/usuarios", function() use($app)
 {
-     try{
-          $connection = getConnection();
-          $dbh = $connection->prepare("SELECT * FROM usuario");
-          $dbh->execute();
-          $usuarios = $dbh->fetchAll(PDO::FETCH_ASSOC);
-          $connection = null;
+     try{ 
+          require_once 'app/DAO/UsuarioDAO.php';
+
+         $usuarioDao = new UsuarioDAO();
+         $usuarios = $usuarioDao->listaUsuarios();
 
           $app->response->headers->set("Content-type", "application/json;charset=utf-8");
           $app->response->status(200);
